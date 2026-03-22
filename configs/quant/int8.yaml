@@ -1,0 +1,52 @@
+# Quantization configurations for Edge Vision Applications
+
+# INT8 Post-Training Quantization
+quantization:
+  method: "int8"
+  calibration_samples: 1000
+  calibration_dataset: "imagenet_val"
+  per_channel: true
+  symmetric: false
+  preserve_range: true
+  
+# Calibration settings
+calibration:
+  batch_size: 32
+  num_batches: 32
+  representative_dataset_size: 1000
+  
+# Quantization-aware training settings
+qat:
+  enabled: false
+  epochs: 10
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  
+# Model-specific quantization
+model_quantization:
+  # Quantize specific layers
+  quantize_conv: true
+  quantize_linear: true
+  quantize_activation: true
+  
+  # Skip quantization for certain layers
+  skip_layers: []
+  
+  # Custom quantization schemes
+  custom_schemes:
+    input_quantization: "per_tensor"
+    weight_quantization: "per_channel"
+    activation_quantization: "per_tensor"
+    
+# Accuracy-aware quantization
+accuracy_aware:
+  enabled: true
+  max_accuracy_loss: 0.01  # 1% max accuracy loss
+  validation_dataset: "imagenet_val"
+  validation_samples: 5000
+  
+# Export settings
+export:
+  target_formats: ["tflite", "onnx"]
+  optimize_for_size: true
+  optimize_for_speed: true

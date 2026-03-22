@@ -1,0 +1,56 @@
+# Pruning configurations for Edge Vision Applications
+
+# Structured Pruning Configuration
+pruning:
+  method: "structured"
+  sparsity: 0.5
+  granularity: "channel"
+  importance_criterion: "magnitude"
+  
+# Pruning schedule
+schedule:
+  type: "gradual"
+  initial_sparsity: 0.0
+  final_sparsity: 0.5
+  epochs: 20
+  frequency: 1
+  
+# Layer-specific pruning
+layer_pruning:
+  # Prune specific layer types
+  prune_conv: true
+  prune_linear: true
+  prune_batch_norm: false
+  
+  # Skip pruning for certain layers
+  skip_layers: ["classifier"]
+  
+  # Different sparsity for different layers
+  layer_sparsity:
+    backbone: 0.6
+    classifier: 0.3
+    
+# Pruning criteria
+criteria:
+  magnitude:
+    threshold: 0.01
+    percentile: 0.1
+    
+  gradient:
+    threshold: 0.001
+    
+  activation:
+    threshold: 0.1
+    
+# Fine-tuning after pruning
+finetuning:
+  enabled: true
+  epochs: 10
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  
+# Model recovery
+recovery:
+  enable_recovery: true
+  recovery_threshold: 0.05  # 5% accuracy drop
+  recovery_epochs: 5

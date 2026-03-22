@@ -1,0 +1,43 @@
+# Jetson Nano Configuration
+device:
+  name: "jetson_nano"
+  platform: "arm64"
+  cpu_cores: 4
+  memory_gb: 4
+  storage_gb: 16
+  inference_backend: "tensorrt"
+  optimization_level: "high"
+  enable_gpu: true
+  enable_tpu: false
+  
+# Camera settings
+camera:
+  resolution: [1280, 720]
+  fps: 30
+  format: "RGB"
+  
+# Performance constraints
+constraints:
+  max_latency_ms: 50
+  target_fps: 30
+  max_memory_mb: 1024
+  max_power_watts: 10.0
+  
+# Model settings
+model:
+  input_size: [224, 224]
+  batch_size: 1
+  precision: "fp16"
+  enable_quantization: false
+  
+# GPU settings
+gpu:
+  enable_tensorrt: true
+  tensorrt_precision: "fp16"
+  max_workspace_size_mb: 1024
+  
+# Logging
+logging:
+  level: "INFO"
+  enable_performance_logging: true
+  log_interval_frames: 30

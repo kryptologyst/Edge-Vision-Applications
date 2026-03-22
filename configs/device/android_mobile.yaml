@@ -1,0 +1,44 @@
+# Android Mobile Configuration
+device:
+  name: "android_mobile"
+  platform: "arm64"
+  cpu_cores: 8
+  memory_gb: 6
+  storage_gb: 64
+  inference_backend: "tflite"
+  optimization_level: "high"
+  enable_gpu: true
+  enable_tpu: false
+  
+# Camera settings
+camera:
+  resolution: [1920, 1080]
+  fps: 30
+  format: "RGB"
+  
+# Performance constraints
+constraints:
+  max_latency_ms: 33  # 30 FPS
+  target_fps: 30
+  max_memory_mb: 256
+  max_power_watts: 3.0
+  
+# Model settings
+model:
+  input_size: [224, 224]
+  batch_size: 1
+  precision: "int8"
+  enable_quantization: true
+  
+# GPU settings
+gpu:
+  enable_gpu_delegate: true
+  gpu_delegate_options:
+    precision_loss_allowed: true
+    enable_quantization: true
+    
+# Logging
+logging:
+  level: "WARNING"
+  enable_performance_logging: false
+  log_interval_frames: 60
